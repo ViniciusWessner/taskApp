@@ -5,6 +5,15 @@
     <string name="status_task_todo">A Fazer</string>
     <string name="status_task_doing">Fazendo</string>
     <string name="status_task_done">Finalizado</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+        <!--Generic -->
+    <string name="text_title_warning">Atencao</string>
+    <string name="text_button_warning">Entendi</string>
+    
+        <!--    login-->
+    <string name="email_empty">Preencha seu e-mail</string>
+    <string name="password_empty">Preencha sua Senha</string>
+
+
 </resources>

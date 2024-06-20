@@ -20,6 +20,7 @@
             android:background="@color/blue_default">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_back">
@@ -88,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@color/white"
+                    android:checked="true"
                     android:text="A Fazer"
                     android:textColor="@color/white" />
 

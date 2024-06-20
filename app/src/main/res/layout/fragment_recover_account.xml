@@ -20,6 +20,7 @@
             android:background="@color/blue_default">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_back">
@@ -61,6 +62,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -70,6 +72,7 @@
                 android:padding="16dp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRecover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
