@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentRecoverAccountBinding
 import com.example.taskapp.util.initToolbar
+import com.example.taskapp.util.showButtomSheet
 
 
 class RecoverAccountFragment : Fragment() {
@@ -43,7 +44,7 @@ class RecoverAccountFragment : Fragment() {
         if (email.isNotEmpty()){
             Toast.makeText(requireContext(), "Link de redefinicao encaminhado", Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(requireContext(), "preencha seu e-mail corretamente", Toast.LENGTH_SHORT).show()
+            showButtomSheet(massage = R.string.fragment_account_massage_warning)
         }
     }
 

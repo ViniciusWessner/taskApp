@@ -11,6 +11,7 @@ import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentFormTaskBinding
 import com.example.taskapp.databinding.FragmentRecoverAccountBinding
 import com.example.taskapp.util.initToolbar
+import com.example.taskapp.util.showButtomSheet
 
 class FormTaskFragment : Fragment() {
 
@@ -46,7 +47,7 @@ class FormTaskFragment : Fragment() {
         if (description.isNotEmpty()){
             Toast.makeText(requireContext(), "tudo certo", Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(requireContext(), "preencha os dados corretamente", Toast.LENGTH_SHORT).show()
+            showButtomSheet(massage = R.string.fragment_form_task_massage)
         }
     }
 

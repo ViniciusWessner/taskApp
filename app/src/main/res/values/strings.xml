@@ -10,10 +10,16 @@
         <!--Generic -->
     <string name="text_title_warning">Atencao</string>
     <string name="text_button_warning">Entendi</string>
-    
-        <!--    login-->
     <string name="email_empty">Preencha seu e-mail</string>
     <string name="password_empty">Preencha sua Senha</string>
+
+        <!-- Recover account   -->
+    <string name="fragment_account_email_empty">Preencha e-mail de login</string>
+    <string name="fragment_account_massage_warning">Preencha corretamente o email que utiliza para realizar o login em nosso app</string>
+    <string name="fragment_account_massage_text">Cuidado</string>
+
+        <!--Form task-->
+    <string name="fragment_form_task_massage">Forneca uma descricao para sua tarefa</string>
 
 
 </resources>

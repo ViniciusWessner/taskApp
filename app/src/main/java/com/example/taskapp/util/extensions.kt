@@ -32,5 +32,7 @@ fun Fragment.showButtomSheet(
         onClick()
         botomSheetDialog.dismiss()
     }
+    botomSheetDialog.setContentView(binding.root)
+    botomSheetDialog.show()
 
 }
