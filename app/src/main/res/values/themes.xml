@@ -8,6 +8,20 @@
     <style name="CustomTabLayout" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:textSize">14dp</item>
         <item name="android:textStyle">bold</item>
-
     </style>
+                            <!-- Edit text Theme-->
+    <style name="EditTextTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+                            <!-- Button Theme-->
+    <style name="ButtonTextTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:background">@drawable/bg_btn</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/blue_default</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
 </resources>

@@ -54,10 +54,10 @@ class LoginFragment : Fragment() {
             if (password.isNotEmpty()){
                 findNavController().navigate(R.id.action_global_homeFragment3)
             }else{
-                showButtomSheet(massage = R.string.password_empty)
+                showButtomSheet(massage = getString(R.string.password_empty))
             }
         }else{
-            showButtomSheet(massage = R.string.email_empty)
+            showButtomSheet(massage = getString(R.string.email_empty))
         }
     }
 

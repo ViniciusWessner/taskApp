@@ -55,10 +55,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_edit_text"
+                style="@style/EditTextTheme"
                 android:hint="Corrigir bug que esta em prod"
                 android:inputType="textEmailAddress"
-                android:padding="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -115,13 +114,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnsave"
+                style="@style/ButtonTextTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_btn"
                 android:text="Salvar tarefa"
-                android:textColor="@color/blue_default"
-                app:backgroundTint="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rgStatus" />

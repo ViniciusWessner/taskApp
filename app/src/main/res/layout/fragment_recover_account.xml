@@ -65,8 +65,7 @@
                 android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_edit_text"
+                style="@style/EditTextTheme"
                 android:hint="Digite aqui seu e-mail"
                 android:inputType="textEmailAddress"
                 android:padding="16dp" />
@@ -76,10 +75,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_btn"
+                style="@style/ButtonTextTheme"
                 android:text="Recuperar Senha"
-                android:textColor="@color/blue_default"
-                app:backgroundTint="@null" />
+                />
 
             <ProgressBar
                 android:id="@+id/progressBar"

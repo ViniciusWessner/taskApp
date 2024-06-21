@@ -44,7 +44,7 @@ class RecoverAccountFragment : Fragment() {
         if (email.isNotEmpty()){
             Toast.makeText(requireContext(), "Link de redefinicao encaminhado", Toast.LENGTH_SHORT).show()
         }else{
-            showButtomSheet(massage = R.string.fragment_account_massage_warning)
+            showButtomSheet(massage = getString(R.string.fragment_account_massage_warning))
         }
     }
 

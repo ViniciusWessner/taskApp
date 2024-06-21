@@ -46,10 +46,10 @@ class RegisterFragment : Fragment() {
             if (password.isNotEmpty()){
                 Toast.makeText(requireContext(), "Cadastro Realizado", Toast.LENGTH_SHORT).show()
             }else{
-                showButtomSheet(massage = R.string.password_empty)
+                showButtomSheet(massage = getString(R.string.password_empty))
             }
         }else{
-            showButtomSheet(massage = R.string.email_empty)
+            showButtomSheet(massage = getString(R.string.email_empty))
         }
     }
 

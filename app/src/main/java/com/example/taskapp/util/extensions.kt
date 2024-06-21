@@ -18,16 +18,16 @@ fun Fragment.initToolbar(toolbar: Toolbar) {
 //componente do modal que avisa de erros, recebe e transmite mensagens
 fun Fragment.showButtomSheet(
     titleDialog: Int? = null,
-    titleButton: Int? = null,
-    massage: Int,
+    titleButton: Int? = null, //verificar essa utilizacao
+    massage: String,
     onClick: ()-> Unit = {}
 ){
     val botomSheetDialog = BottomSheetDialog(requireContext(), )
     val binding: BottomSheetBinding =
         BottomSheetBinding.inflate(layoutInflater, null, false)
     binding.txtTitle.text = getText(titleDialog ?: R.string.text_title_warning)
-    binding.txtMessage.text = getText(massage)
-    binding.btnsave.text = getText(titleDialog ?: R.string.text_button_warning)
+    binding.txtMessage.text = massage
+    binding.btnsave.text = getText(titleButton ?: R.string.text_button_warning)
     binding.btnsave.setOnClickListener{
         onClick()
         botomSheetDialog.dismiss()

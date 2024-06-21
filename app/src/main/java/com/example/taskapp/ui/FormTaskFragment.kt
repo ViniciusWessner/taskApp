@@ -47,7 +47,7 @@ class FormTaskFragment : Fragment() {
         if (description.isNotEmpty()){
             Toast.makeText(requireContext(), "tudo certo", Toast.LENGTH_SHORT).show()
         }else{
-            showButtomSheet(massage = R.string.fragment_form_task_massage)
+            showButtomSheet(massage = getString(R.string.fragment_form_task_massage))
         }
     }
 
