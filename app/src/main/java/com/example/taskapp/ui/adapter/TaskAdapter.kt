@@ -21,9 +21,7 @@ class TaskAdapter(
     }
 
     //setamos o tamanho da lista pro recycler view
-    override fun getItemCount(): Int {
-        val size = taskList.size
-    }
+    override fun getItemCount(): Int = taskList.size
 
     //aqui vamos exibir as informacoes dinamicamente (ex: titulo)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
