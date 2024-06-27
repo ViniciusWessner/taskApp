@@ -42,7 +42,7 @@ class TodoFragment : Fragment() {
 
     private fun initReciclerViewTasks(task: List<Task>){
         //inicializando adapter
-        taskAdapter = TaskAdapter(task)
+        taskAdapter = TaskAdapter(requireContext(), task)
 
         binding.rvTask.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTask.setHasFixedSize(true)

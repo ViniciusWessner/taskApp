@@ -35,14 +35,14 @@ class DoingFragment : Fragment() {
 
     private fun initReciclerViewTasks(task: List<Task>){
         //inicializando adapter
-        taskAdapter = TaskAdapter(task)
+        taskAdapter = TaskAdapter(requireContext(), task)
 
         binding.rvTask.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTask.setHasFixedSize(true)
         binding.rvTask.adapter = taskAdapter
     }
 
-    private fun getTasks() = listOf<Task>(
+    private fun getTasks() = listOf(
         Task("1", "Criar e configurar meu primeiro app", Status.DOING),
         Task("2", "Configurar pipeline github actions", Status.DOING),
         Task("3", "Analisar graficos do grafana", Status.DOING)
