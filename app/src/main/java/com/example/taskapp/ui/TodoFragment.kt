@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskapp.R
@@ -31,7 +32,8 @@ class TodoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
-        initReciclerViewTasks(getTasks())
+        initReciclerViewTasks()
+        getTasks()
     }
 
     private fun initListener(){
@@ -40,20 +42,48 @@ class TodoFragment : Fragment() {
         }
     }
 
-    private fun initReciclerViewTasks(task: List<Task>){
+    private fun initReciclerViewTasks(){
         //inicializando adapter
-        taskAdapter = TaskAdapter(requireContext(), task)
+        taskAdapter = TaskAdapter(requireContext()) { option, task ->
+            optionSelected(option, task)
+        }
 
-        binding.rvTask.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvTask.setHasFixedSize(true)
-        binding.rvTask.adapter = taskAdapter
+        with(binding.rvTask) {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            adapter = taskAdapter
+        }
     }
 
-    private fun getTasks() = listOf<Task>(
-        Task("1", "Caminhar 5km", Status.TODO),
-        Task("2", "Criar nova view", Status.TODO),
-        Task("3", "Estudar sobre recycler view", Status.TODO)
-    )
+    private fun optionSelected(task: Task, option: Int){
+        when(option) {
+            TaskAdapter.SELECT_REMOVE -> {
+                Toast.makeText(requireContext(), "Removendo tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
+            }
+            TaskAdapter.SELECT_EDIT -> {
+                Toast.makeText(requireContext(), "Editando tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
+
+            }
+            TaskAdapter.SELECT_DETAILS -> {
+                Toast.makeText(requireContext(), "Acessando detalhes da terefa: ${task.description}", Toast.LENGTH_SHORT).show()
+
+            }
+            TaskAdapter.SELECT_NEXT -> {
+                Toast.makeText(requireContext(), "Avancando tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
+
+            }
+
+        }
+    }
+
+    private fun getTasks() {
+        val taskList = listOf(
+            Task("1", "Caminhar 5km", Status.TODO),
+            Task("2", "Criar nova view", Status.TODO),
+            Task("3", "Estudar sobre recycler view", Status.TODO)
+        )
+        taskAdapter.submitList(taskList)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
