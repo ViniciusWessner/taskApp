@@ -17,9 +17,17 @@
     <string name="fragment_account_email_empty">Preencha e-mail de login</string>
     <string name="fragment_account_massage_warning">Preencha corretamente o email que utiliza para realizar o login em nosso app</string>
     <string name="fragment_account_massage_text">Cuidado</string>
+    <string name="fragment_account_massage">Enviamos um link de redefinicao de senha para o e-mail preenchido</string>
 
         <!--Form task-->
     <string name="fragment_form_task_massage">Forneca uma descricao para sua tarefa</string>
+
+    <!--Logout warning-->
+    <string name="logout_button">Sair</string>
+    <string name="logout_title_dialog">Deseja desconectar da sua conta?</string>
+    <string name="logout_message">Pressione o botao sair para realizar o logout da sua conta</string>
+
+
 
 
 </resources>
