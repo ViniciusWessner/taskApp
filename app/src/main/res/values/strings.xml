@@ -6,6 +6,8 @@
     <string name="status_task_doing">Fazendo</string>
     <string name="status_task_done">Finalizado</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="return_Error_Create_Task">Erro ao criar tarefa</string>
+    <string name="return_Success_Create_Task">Tarefa criada com sucesso</string>
 
         <!--Generic -->
     <string name="text_title_warning">Atencao</string>
