@@ -15,6 +15,7 @@ import com.example.taskapp.data.Model.Task
 import com.example.taskapp.databinding.FragmentHomeBinding
 import com.example.taskapp.databinding.FragmentTodoBinding
 import com.example.taskapp.ui.adapter.TaskAdapter
+import com.example.taskapp.util.showButtomSheet
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -75,7 +76,14 @@ class TodoFragment : Fragment() {
     private fun optionSelected(task: Task, option: Int){
         when(option) {
             TaskAdapter.SELECT_REMOVE -> {
-                Toast.makeText(requireContext(), "Removendo tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
+                showButtomSheet(
+                    titleDialog = R.string.dialog_titile_Button_delete,
+                    titleButton = R.string.dialog_message_title_delete,
+                    massage = getString(R.string.dialog_message_button_delete),
+                    onClick = {
+                        deleteTask(task)
+                    }
+                )
             }
             TaskAdapter.SELECT_EDIT -> {
                 Toast.makeText(requireContext(), "Editando tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
@@ -112,6 +120,7 @@ class TodoFragment : Fragment() {
                     listEmpty(taskList)
                     binding.progressBarList.isVisible = false
 
+                    taskList.reverse()
                     taskAdapter.submitList(taskList)
                 }
 
@@ -125,6 +134,20 @@ class TodoFragment : Fragment() {
             })
     }
 
+    private fun deleteTask(taskId: Task){
+        reference
+            .child("tasks")
+            .child(auth.currentUser?.uid ?: "")
+            .child(taskId.id)
+            .removeValue().addOnCompleteListener {result ->
+                if (result.isSuccessful){
+                    Toast.makeText(requireContext(), R.string.return_task_delete, Toast.LENGTH_SHORT).show()
+                } else{
+                    Toast.makeText(requireContext(), R.string.return_Error_Create_Task, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+    }
     private fun listEmpty(taskList: List<Task>){
         binding.textInfo.text = if (taskList.isEmpty()){
             getString(R.string.return_empty_tasks)

@@ -10,12 +10,18 @@
     <string name="return_Success_Create_Task">Tarefa criada com sucesso</string>
     <string name="return_empty_tasks">Nenhuma tarefa encontrada</string>
     <string name="return_loading_tasks">Buscando tarefas cadastradas</string>
+    <string name="return_task_delete">Tarefa removida com sucesso</string>
 
         <!--Generic -->
     <string name="text_title_warning">Atencao</string>
     <string name="text_button_warning">Entendi</string>
     <string name="email_empty">Preencha seu e-mail</string>
     <string name="password_empty">Preencha sua Senha</string>
+    <string name="dialog_titile_Button_delete">Deseja remover esta tarefa?</string>
+    <string name="dialog_message_button_delete">Aperte em confirmar para que seja removida a tarefa</string>
+    <string name="dialog_message_title_delete">Confirmar</string>
+
+
 
         <!-- Recover account   -->
     <string name="fragment_account_email_empty">Preencha e-mail de login</string>
