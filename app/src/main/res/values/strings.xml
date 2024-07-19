@@ -8,6 +8,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="return_Error_Create_Task">Erro ao criar tarefa</string>
     <string name="return_Success_Create_Task">Tarefa criada com sucesso</string>
+    <string name="return_empty_tasks">Nenhuma tarefa encontrada</string>
+    <string name="return_loading_tasks">Buscando tarefas cadastradas</string>
 
         <!--Generic -->
     <string name="text_title_warning">Atencao</string>
