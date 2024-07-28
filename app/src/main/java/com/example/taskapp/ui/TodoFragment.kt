@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskapp.R
@@ -15,6 +16,7 @@ import com.example.taskapp.data.Model.Task
 import com.example.taskapp.databinding.FragmentHomeBinding
 import com.example.taskapp.databinding.FragmentTodoBinding
 import com.example.taskapp.ui.adapter.TaskAdapter
+import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.showButtomSheet
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -31,8 +33,7 @@ class TodoFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var taskAdapter: TaskAdapter
 
-    private lateinit var reference: DatabaseReference
-    private lateinit var auth: FirebaseAuth
+    private val viewModel:TaskViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,19 +45,38 @@ class TodoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //init firebase
-        reference = Firebase.database.reference
-        auth = Firebase.auth
-
         initListener()
         initReciclerViewTasks()
         getTasks()
 
     }
 
+
     private fun initListener(){
         binding.fabAdd.setOnClickListener{
-            findNavController().navigate(R.id.action_homeFragment_to_formTaskFragment)
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToFormTaskFragment(null) //tarefa nova == null
+            findNavController().navigate(action)
+        }
+        observeViewModel()
+    }
+
+    private fun observeViewModel(){
+        viewModel.taskUpdate.observe(viewLifecycleOwner){updateTask ->
+            if (updateTask.status == Status.TODO){
+                val oldList = taskAdapter.currentList //lista atual
+
+                val newList = oldList.toMutableList().apply{
+                    find { it.id == updateTask.id }?.description = updateTask.description
+                }
+
+                val position = newList.indexOfFirst { it.id == updateTask.id }
+
+                taskAdapter.submitList(newList)
+
+                taskAdapter.notifyItemChanged(position)
+
+            }
         }
     }
 
@@ -86,8 +106,11 @@ class TodoFragment : Fragment() {
                 )
             }
             TaskAdapter.SELECT_EDIT -> {
-                Toast.makeText(requireContext(), "Editando tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
 
+                //action_homeFragment_to_formTaskFragment
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToFormTaskFragment(task)
+                findNavController().navigate(action)
             }
             TaskAdapter.SELECT_DETAILS -> {
                 Toast.makeText(requireContext(), "Acessando detalhes da terefa: ${task.description}", Toast.LENGTH_SHORT).show()
@@ -102,9 +125,9 @@ class TodoFragment : Fragment() {
     }
 
     private fun getTasks() {
-        reference
+        FirebaseHelper.getDatabase()
             .child("tasks")
-            .child(auth.currentUser?.uid ?: "")
+            .child(FirebaseHelper.getIdUser())
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     //qualquer alteracao o snapshot fica observando
@@ -133,11 +156,10 @@ class TodoFragment : Fragment() {
 
             })
     }
-
     private fun deleteTask(taskId: Task){
-        reference
+        FirebaseHelper.getDatabase()
             .child("tasks")
-            .child(auth.currentUser?.uid ?: "")
+            .child(FirebaseHelper.getIdUser())
             .child(taskId.id)
             .removeValue().addOnCompleteListener {result ->
                 if (result.isSuccessful){

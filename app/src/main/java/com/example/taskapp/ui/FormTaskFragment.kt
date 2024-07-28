@@ -1,25 +1,21 @@
 package com.example.taskapp.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.taskapp.R
 import com.example.taskapp.data.Model.Status
 import com.example.taskapp.databinding.FragmentFormTaskBinding
-import com.example.taskapp.databinding.FragmentRecoverAccountBinding
+import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.initToolbar
 import com.example.taskapp.util.showButtomSheet
-import com.google.android.gms.tasks.Task
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.database
 
 class FormTaskFragment : Fragment() {
 
@@ -30,8 +26,9 @@ class FormTaskFragment : Fragment() {
     private var status: Status = Status.TODO
     private var newTask: Boolean = true
 
-    private lateinit var reference: DatabaseReference
-    private lateinit var auth: FirebaseAuth
+    private val args: FormTaskFragmentArgs by navArgs()
+    private val viewModel:TaskViewModel by activityViewModels()
+
 
 
     override fun onCreateView(
@@ -45,12 +42,19 @@ class FormTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar(binding.toolbar)
-        reference = Firebase.database.reference
-        auth = Firebase.auth
 
+        getArgs()
         initListeners()
     }
 
+    private fun getArgs(){
+        args.task.let {
+            if (it != null){
+                this.task = it
+                configTask()
+            }
+        }
+    }
 
     private fun initListeners(){
         binding.btnsave.setOnClickListener{
@@ -66,6 +70,22 @@ class FormTaskFragment : Fragment() {
         }
     }
 
+    private fun configTask(){
+        newTask = false
+        status = task.status
+        binding.textToolbar.setText("Editando tarefa")
+        binding.editDescription.setText(task.description)
+        setStatus()
+    }
+
+    private fun setStatus(){
+        binding.rgStatus.check(when(task.status){
+            Status.TODO -> R.id.rbTodo
+            Status.DOING -> R.id.rbDoing
+            else -> R.id.rbDone
+        })
+    }
+
     private fun validadeData(){
         val description = binding.editDescription.text.toString().trim()
 
@@ -73,8 +93,10 @@ class FormTaskFragment : Fragment() {
         if (description.isNotEmpty()){
             binding.progressBar.isVisible = true
 
-            if (newTask) task = com.example.taskapp.data.Model.Task()
-            task.id = reference.database.reference.push().key ?: ""
+            if (newTask) {
+                task = com.example.taskapp.data.Model.Task()
+
+            }
             task.description = description
             task.status = status
 
@@ -85,9 +107,9 @@ class FormTaskFragment : Fragment() {
     }
 
     private fun saveTask(){
-        reference
+        FirebaseHelper.getDatabase()
             .child("tasks")
-            .child(auth.currentUser?.uid ?: "")
+            .child(FirebaseHelper.getIdUser())
             .child(task.id)
             .setValue(task).addOnCompleteListener { result ->
                 if(result.isSuccessful){
@@ -95,6 +117,7 @@ class FormTaskFragment : Fragment() {
                     if(newTask){
                         findNavController().popBackStack()
                     } else {
+                        viewModel.setUpdateTask(task)
                         binding.progressBar.isVisible = false
                     }
                 }else{

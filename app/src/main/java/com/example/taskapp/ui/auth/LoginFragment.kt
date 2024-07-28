@@ -1,6 +1,7 @@
 package com.example.taskapp.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentLoginBinding
 import com.example.taskapp.databinding.FragmentRegisterBinding
+import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.showButtomSheet
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -76,7 +78,10 @@ class LoginFragment : Fragment() {
                         findNavController().navigate(R.id.action_global_homeFragment3)
                     } else {
                         binding.progressBar.isVisible = false
-                        Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT).show()
+                        Log.d("FIREBASE", "Erro de login: ${task.exception?.message}")
+                        showButtomSheet(
+                            massage = getString(FirebaseHelper.validError(task.exception?.message.toString()))
+                        )
                 }
             }
     }

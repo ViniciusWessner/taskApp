@@ -7,7 +7,7 @@
     <string name="status_task_done">Finalizado</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="return_Error_Create_Task">Erro ao criar tarefa</string>
-    <string name="return_Success_Create_Task">Tarefa criada com sucesso</string>
+    <string name="return_Success_Create_Task">Tarefa salva com sucesso</string>
     <string name="return_empty_tasks">Nenhuma tarefa encontrada</string>
     <string name="return_loading_tasks">Buscando tarefas cadastradas</string>
     <string name="return_task_delete">Tarefa removida com sucesso</string>
@@ -21,9 +21,15 @@
     <string name="dialog_message_button_delete">Aperte em confirmar para que seja removida a tarefa</string>
     <string name="dialog_message_title_delete">Confirmar</string>
 
+    <!-- Erros Firebase   -->
+    <string name="acount_not_registre">Nenhuma conta encontrada com este e-mail</string>
+    <string name="invalid_email_login">Insira um e-mail valido</string>
+    <string name="invalid_password_login">Senha invalida, tente novamente</string>
+    <string name="email_in_user">Este e-mail já está em uso</string>
+    <string name="password_strong">Sua senha nao possui a quantidade de caracteres suficientes</string>
+    <string name="error_generic">Ocorreu um erro</string>
 
-
-        <!-- Recover account   -->
+    <!-- Recover account   -->
     <string name="fragment_account_email_empty">Preencha e-mail de login</string>
     <string name="fragment_account_massage_warning">Preencha corretamente o email que utiliza para realizar o login em nosso app</string>
     <string name="fragment_account_massage_text">Cuidado</string>

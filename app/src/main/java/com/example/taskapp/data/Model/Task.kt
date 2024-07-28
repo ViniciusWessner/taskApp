@@ -1,7 +1,7 @@
 package com.example.taskapp.data.Model
 
-import android.app.ActivityManager.TaskDescription
 import android.os.Parcelable
+import com.example.taskapp.util.FirebaseHelper
 import kotlinx.parcelize.Parcelize
 
 //usamos a data class pra jogar dados em memoria de uma classe para outra etc
@@ -11,4 +11,8 @@ data class Task(
     var id: String = "",
     var description: String = "",
     var status: Status = Status.TODO
-):Parcelable
+):Parcelable {
+    init {
+        this.id = FirebaseHelper.getDatabase().push().key ?: ""
+    }
+}
