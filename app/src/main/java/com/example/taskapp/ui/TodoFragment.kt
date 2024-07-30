@@ -1,31 +1,25 @@
 package com.example.taskapp.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskapp.R
 import com.example.taskapp.data.Model.Status
 import com.example.taskapp.data.Model.Task
-import com.example.taskapp.databinding.FragmentHomeBinding
 import com.example.taskapp.databinding.FragmentTodoBinding
 import com.example.taskapp.ui.adapter.TaskAdapter
 import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.showButtomSheet
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
 
 class TodoFragment : Fragment() {
 
@@ -117,6 +111,8 @@ class TodoFragment : Fragment() {
 
             }
             TaskAdapter.SELECT_NEXT -> {
+                task.status = Status.DOING
+                updateTask(task)
                 Toast.makeText(requireContext(), "Avancando tarefa: ${task.description}", Toast.LENGTH_SHORT).show()
 
             }
@@ -155,6 +151,20 @@ class TodoFragment : Fragment() {
                 }
 
             })
+    }
+
+    private fun updateTask(task: Task){
+        FirebaseHelper.getDatabase()
+            .child("tasks")
+            .child(FirebaseHelper.getIdUser())
+            .child(task.id)
+            .setValue(task).addOnCompleteListener { result ->
+                if(result.isSuccessful){
+                    Toast.makeText(requireContext(), R.string.return_Success_Create_Task, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), R.string.error_generic, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
     private fun deleteTask(taskId: Task){
         FirebaseHelper.getDatabase()

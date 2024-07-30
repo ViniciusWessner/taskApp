@@ -89,14 +89,10 @@ class FormTaskFragment : Fragment() {
     private fun validadeData(){
         val description = binding.editDescription.text.toString().trim()
 
-
         if (description.isNotEmpty()){
             binding.progressBar.isVisible = true
 
-            if (newTask) {
-                task = com.example.taskapp.data.Model.Task()
-
-            }
+            if (newTask) task = com.example.taskapp.data.Model.Task()
             task.description = description
             task.status = status
 
