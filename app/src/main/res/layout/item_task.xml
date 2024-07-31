@@ -24,8 +24,9 @@
             android:padding="16dp">
 
             <ImageView
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_back"
                 android:tint="@color/blue_default"
@@ -94,8 +95,9 @@
                 app:layout_constraintTop_toTopOf="@+id/btnEdit" />
 
             <ImageView
+                android:id="@+id/btnNext"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_next"
                 android:tint="@color/blue_default"

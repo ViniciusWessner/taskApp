@@ -6,20 +6,44 @@
     <string name="status_task_doing">Fazendo</string>
     <string name="status_task_done">Finalizado</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="return_Error_Create_Task">Erro ao criar tarefa</string>
+    <string name="return_Success_Create_Task">Tarefa salva com sucesso</string>
+    <string name="return_empty_tasks">Nenhuma tarefa encontrada</string>
+    <string name="return_loading_tasks">Buscando tarefas cadastradas</string>
+    <string name="return_task_delete">Tarefa removida com sucesso</string>
 
         <!--Generic -->
     <string name="text_title_warning">Atencao</string>
     <string name="text_button_warning">Entendi</string>
     <string name="email_empty">Preencha seu e-mail</string>
     <string name="password_empty">Preencha sua Senha</string>
+    <string name="dialog_titile_Button_delete">Deseja remover esta tarefa?</string>
+    <string name="dialog_message_button_delete">Aperte em confirmar para que seja removida a tarefa</string>
+    <string name="dialog_message_title_delete">Confirmar</string>
 
-        <!-- Recover account   -->
+    <!-- Erros Firebase   -->
+    <string name="acount_not_registre">Nenhuma conta encontrada com este e-mail</string>
+    <string name="invalid_email_login">Insira um e-mail valido</string>
+    <string name="invalid_password_login">Senha invalida, tente novamente</string>
+    <string name="email_in_user">Este e-mail já está em uso</string>
+    <string name="password_strong">Sua senha nao possui a quantidade de caracteres suficientes</string>
+    <string name="error_generic">Ocorreu um erro</string>
+
+    <!-- Recover account   -->
     <string name="fragment_account_email_empty">Preencha e-mail de login</string>
     <string name="fragment_account_massage_warning">Preencha corretamente o email que utiliza para realizar o login em nosso app</string>
     <string name="fragment_account_massage_text">Cuidado</string>
+    <string name="fragment_account_massage">Enviamos um link de redefinicao de senha para o e-mail preenchido</string>
 
         <!--Form task-->
     <string name="fragment_form_task_massage">Forneca uma descricao para sua tarefa</string>
+
+    <!--Logout warning-->
+    <string name="logout_button">Sair</string>
+    <string name="logout_title_dialog">Deseja desconectar da sua conta?</string>
+    <string name="logout_message">Pressione o botao sair para realizar o logout da sua conta</string>
+
+
 
 
 </resources>

@@ -1,19 +1,20 @@
 package com.example.taskapp.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentLoginBinding
-import com.example.taskapp.databinding.FragmentRegisterBinding
+import com.example.taskapp.ui.BaseFragment
+import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.showButtomSheet
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -52,13 +53,30 @@ class LoginFragment : Fragment() {
 
         if (email.isNotEmpty()){
             if (password.isNotEmpty()){
-                findNavController().navigate(R.id.action_global_homeFragment3)
+                hideKeyboard()
+                login(email, password)
             }else{
                 showButtomSheet(massage = getString(R.string.password_empty))
             }
         }else{
             showButtomSheet(massage = getString(R.string.email_empty))
         }
+    }
+
+    private fun login(email: String, password: String){
+        FirebaseHelper.getAuth().signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener() { task ->
+                    if (task.isSuccessful) {
+                        binding.progressBar.isVisible = true
+                        findNavController().navigate(R.id.action_global_homeFragment3)
+                    } else {
+                        binding.progressBar.isVisible = false
+                        Log.d("FIREBASE", "Erro de login: ${task.exception?.message}")
+                        showButtomSheet(
+                            massage = getString(FirebaseHelper.validError(task.exception?.message.toString()))
+                        )
+                }
+            }
     }
 
     override fun onDestroyView() {

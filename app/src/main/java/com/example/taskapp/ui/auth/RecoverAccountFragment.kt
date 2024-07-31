@@ -1,22 +1,24 @@
 package com.example.taskapp.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.core.view.isVisible
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentRecoverAccountBinding
+import com.example.taskapp.ui.BaseFragment
+import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.initToolbar
 import com.example.taskapp.util.showButtomSheet
 
 
-class RecoverAccountFragment : Fragment() {
+class RecoverAccountFragment : BaseFragment() {
 
     private var _binding: FragmentRecoverAccountBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,10 +44,26 @@ class RecoverAccountFragment : Fragment() {
         val email = binding.editEmail.text.toString().trim()
 
         if (email.isNotEmpty()){
-            Toast.makeText(requireContext(), "Link de redefinicao encaminhado", Toast.LENGTH_SHORT).show()
+            hideKeyboard()
+            binding.progressBar.isVisible = true
+            recoveryUserAccount(email)
         }else{
             showButtomSheet(massage = getString(R.string.fragment_account_massage_warning))
         }
+    }
+
+    private fun recoveryUserAccount(email: String){
+        FirebaseHelper.getAuth().sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                binding.progressBar.isVisible = false
+                if (task.isSuccessful){
+                    showButtomSheet(
+                        massage = getString(R.string.fragment_account_massage),
+                    )
+                }else {
+                    Toast.makeText(requireContext(), task.exception?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     override fun onDestroyView() {

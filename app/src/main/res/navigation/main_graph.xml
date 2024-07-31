@@ -15,6 +15,11 @@
             app:destination="@id/auth"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <navigation android:id="@+id/auth"
         app:startDestination="@id/loginFragment">
@@ -52,10 +57,20 @@
         <action
             android:id="@+id/action_homeFragment_to_formTaskFragment"
             app:destination="@id/formTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_auth"
+            app:destination="@id/auth"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/formTaskFragment"
         android:name="com.example.taskapp.ui.FormTaskFragment"
         android:label="fragment_form_task"
-        tools:layout="@layout/fragment_form_task" />
+        tools:layout="@layout/fragment_form_task" >
+        <argument
+            android:name="task"
+            app:argType="com.example.taskapp.data.Model.Task"
+            app:nullable="true" />
+    </fragment>
 </navigation>
