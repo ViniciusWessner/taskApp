@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,7 +16,7 @@ import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.initToolbar
 import com.example.taskapp.util.showButtomSheet
 
-class FormTaskFragment : Fragment() {
+class FormTaskFragment : BaseFragment() {
 
     private var _binding: FragmentFormTaskBinding? = null
     private val binding get() = _binding!!
@@ -90,6 +89,7 @@ class FormTaskFragment : Fragment() {
         val description = binding.editDescription.text.toString().trim()
 
         if (description.isNotEmpty()){
+            hideKeyboard()
             binding.progressBar.isVisible = true
 
             if (newTask) task = com.example.taskapp.data.Model.Task()
