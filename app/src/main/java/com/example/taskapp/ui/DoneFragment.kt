@@ -1,6 +1,7 @@
 package com.example.taskapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -137,7 +138,7 @@ class DoneFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) {
                     //meto que vai ser chamado quando abrirmos o aplicativo e ele comecar uma busca,
                     // comecou e fechamos o app ele vai ser executado pois cancelamos a busca
-                    Toast.makeText(requireContext(), R.string.return_Error_Create_Task, Toast.LENGTH_SHORT).show()
+                    Log.i("Desconect", "Desconect firebase")
 
                 }
 
