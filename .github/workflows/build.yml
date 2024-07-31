@@ -3,7 +3,7 @@ name: Build Android APK
 on:
   push:
     branches:
-      - develop  # ou a branch que você deseja monitorar
+      - dev
 
 jobs:
   build:
