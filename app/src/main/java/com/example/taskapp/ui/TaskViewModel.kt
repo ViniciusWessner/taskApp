@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.taskapp.data.Model.Status
 import com.example.taskapp.data.Model.Task
 import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.StateView
@@ -27,7 +26,7 @@ class TaskViewModel: ViewModel() {
     val taskDelete: LiveData<StateView<Task>> = _taskDelete
 
 
-     fun getTasks(status: Status) {
+     fun getTasks() {
        try {
            _taskList.postValue(StateView.OnLoading())
 
@@ -42,9 +41,7 @@ class TaskViewModel: ViewModel() {
 
                        for (ds in snapshot.children){
                            val task = ds.getValue(Task::class.java) as Task
-                           if (task.status == Status.TODO){
-                               taskList.add(task)
-                           }
+                           taskList.add(task)
                        }
                        taskList.reverse()
                        _taskList.postValue(StateView.OnSuccess(taskList))

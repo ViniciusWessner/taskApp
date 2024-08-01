@@ -41,7 +41,7 @@ class TodoFragment : Fragment() {
         initReciclerViewTasks()
         observeViewModel()
 
-        viewModel.getTasks(Status.TODO)
+        viewModel.getTasks()
 
     }
 
@@ -63,10 +63,12 @@ class TodoFragment : Fragment() {
                    binding.progressBarList.isVisible = true
                }
                is StateView.OnSuccess -> {
-                   binding.progressBarList.isVisible = false
-                   listEmpty(stateView.data ?: emptyList())
+                   val taskList = stateView.data?.filter { it.status == Status.TODO }
 
-                   taskAdapter.submitList(stateView.data)
+                   binding.progressBarList.isVisible = false
+                   listEmpty(taskList ?: emptyList())
+
+                   taskAdapter.submitList(taskList)
                }
                is StateView.OnError -> {
                    binding.progressBarList.isVisible = false
@@ -111,6 +113,12 @@ class TodoFragment : Fragment() {
                     val oldList = taskAdapter.currentList //lista atual
 
                     val newList = oldList.toMutableList().apply{
+
+                        if (!oldList.contains(stateView.data) && stateView.data?.status == Status.TODO ){
+                            add(0, stateView.data)
+                            setPositionRecyclerView()
+                        }
+
                         if (stateView.data?.status == Status.TODO) {
                             find { it.id == stateView.data.id }?.description = stateView.data.description
                         } else {
@@ -169,7 +177,6 @@ class TodoFragment : Fragment() {
             adapter = taskAdapter
         }
     }
-
     private fun optionSelected(task: Task, option: Int){
         when(option) {
             TaskAdapter.SELECT_REMOVE -> {
@@ -202,9 +209,6 @@ class TodoFragment : Fragment() {
 
         }
     }
-
-
-
     private fun setPositionRecyclerView(){
         taskAdapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver(){
             //observa se tem alguma tarefa adicionada e muda para a nova posicao deixando ela ser a primeira
@@ -213,9 +217,6 @@ class TodoFragment : Fragment() {
             }
         })
     }
-
-
-
     private fun listEmpty(taskList: List<Task>){
         binding.textInfo.text = if (taskList.isEmpty()){
             getString(R.string.return_empty_tasks)
