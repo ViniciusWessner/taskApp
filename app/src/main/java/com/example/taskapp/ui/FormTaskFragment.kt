@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.taskapp.R
 import com.example.taskapp.data.Model.Status
 import com.example.taskapp.databinding.FragmentFormTaskBinding
-import com.example.taskapp.util.FirebaseHelper
 import com.example.taskapp.util.initToolbar
 import com.example.taskapp.util.showButtomSheet
 
@@ -46,6 +45,19 @@ class FormTaskFragment : BaseFragment() {
         initListeners()
     }
 
+    private fun observeViewModel(){
+        viewModel.taskInsert.observe(viewLifecycleOwner){task ->
+            Toast.makeText(requireContext(), R.string.return_Success_Create_Task, Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+        }
+
+        viewModel.taskUpdate.observe(viewLifecycleOwner){task ->
+            Toast.makeText(requireContext(), R.string.return_Success_Create_Task, Toast.LENGTH_SHORT).show()
+            binding.progressBar.isVisible = false
+            findNavController().popBackStack()
+        }
+    }
+
     private fun getArgs(){
         args.task.let {
             if (it != null){
@@ -57,6 +69,7 @@ class FormTaskFragment : BaseFragment() {
 
     private fun initListeners(){
         binding.btnsave.setOnClickListener{
+            observeViewModel()
             validadeData()
             //findNavController().navigate(R.id.action_global_homeFragment3)
         }
@@ -96,32 +109,17 @@ class FormTaskFragment : BaseFragment() {
             task.description = description
             task.status = status
 
-            saveTask()
+            if (newTask){
+                viewModel.insertTask(task)
+            } else{
+                viewModel.updateTask(task)
+            }
         }else{
             showButtomSheet(massage = getString(R.string.fragment_form_task_massage))
         }
     }
 
-    private fun saveTask(){
-        FirebaseHelper.getDatabase()
-            .child("tasks")
-            .child(FirebaseHelper.getIdUser())
-            .child(task.id)
-            .setValue(task).addOnCompleteListener { result ->
-                if(result.isSuccessful){
-                    Toast.makeText(requireContext(), R.string.return_Success_Create_Task, Toast.LENGTH_SHORT).show()
-                    if(newTask){
-                        findNavController().popBackStack()
-                    } else {
-                        viewModel.setUpdateTask(task)
-                        binding.progressBar.isVisible = false
-                    }
-                }else{
-                    showButtomSheet(massage = getString(R.string.return_Error_Create_Task))
-                }
-            }
 
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
