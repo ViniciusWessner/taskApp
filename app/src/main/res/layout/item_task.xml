@@ -29,7 +29,7 @@
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_back"
-                android:tint="@color/blue_default"
+                app:tint="@color/blue_default"
                 app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnEdit" />
@@ -100,7 +100,7 @@
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_next"
-                android:tint="@color/blue_default"
+                app:tint="@color/blue_default"
                 app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnEdit" />
