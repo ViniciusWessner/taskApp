@@ -13,30 +13,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up JDK 11
+    - name: Setup do JDK 
       uses: actions/setup-java@v2
       with:
-        distribution: 'zulu'
-        java-version: '11'
+        distribution: 'adopt'
+        java-version: '17'
 
-    - name: Cache Gradle packages
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          gradle-${{ runner.os }}-
+    - name: Buildando o app com gradle
+      run: ./gradlew build
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
-    - name: Build with Gradle
-      run: ./gradlew assembleRelease
-
-    - name: Upload APK
+    - name: Upload do app com artifact
       uses: actions/upload-artifact@v3
       with:
-        name: app-release.apk
-        path: app/build/outputs/apk/release/app-release.apk
+        name: taskAppCICD.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
