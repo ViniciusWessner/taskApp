@@ -1,0 +1,29 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - dev 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup do JDK 
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    - name: Buildando o app com gradle
+      run: ./gradlew build
+
+    - name: Upload do app com artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: taskAppCICD.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
